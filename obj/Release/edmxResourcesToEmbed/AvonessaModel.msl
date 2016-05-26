@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище AvonessaDBModelContainer" CdmEntityContainer="AvonessaDBEntities">
+    <EntitySetMapping Name="Administrators">
+      <EntityTypeMapping TypeName="AvonessaDBModel.Administrator">
+        <MappingFragment StoreEntitySet="Administrators">
+          <ScalarProperty Name="A_Id" ColumnName="A_Id" />
+          <ScalarProperty Name="AdminLogin" ColumnName="AdminLogin" />
+          <ScalarProperty Name="AdminPassword" ColumnName="AdminPassword" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="AvonessaDBModel.Category">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="C_Id" ColumnName="C_Id" />
+          <ScalarProperty Name="C_C_Id" ColumnName="C_C_Id" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="OrderInPage" ColumnName="OrderInPage" />
+          <ScalarProperty Name="I_I_Id" ColumnName="I_I_Id" />
+          <ScalarProperty Name="CategoryNameEnglish" ColumnName="CategoryNameEnglish" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerOrders">
+      <EntityTypeMapping TypeName="AvonessaDBModel.CustomerOrder">
+        <MappingFragment StoreEntitySet="CustomerOrders">
+          <ScalarProperty Name="CO_Id" ColumnName="CO_Id" />
+          <ScalarProperty Name="CR_CR_Id" ColumnName="CR_CR_Id" />
+          <ScalarProperty Name="O_O_Id" ColumnName="O_O_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Images">
+      <EntityTypeMapping TypeName="AvonessaDBModel.Image">
+        <MappingFragment StoreEntitySet="Images">
+          <ScalarProperty Name="I_Id" ColumnName="I_Id" />
+          <ScalarProperty Name="ImageFilePath" ColumnName="ImageFilePath" />
+          <ScalarProperty Name="ImageFilePath2" ColumnName="ImageFilePath2" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderProducts">
+      <EntityTypeMapping TypeName="AvonessaDBModel.OrderProduct">
+        <MappingFragment StoreEntitySet="OrderProducts">
+          <ScalarProperty Name="OP_Id" ColumnName="OP_Id" />
+          <ScalarProperty Name="P_P_Id" ColumnName="P_P_Id" />
+          <ScalarProperty Name="O_O_Id" ColumnName="O_O_Id" />
+          <ScalarProperty Name="P_Quantity" ColumnName="P_Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="AvonessaDBModel.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="O_PayerId" ColumnName="O_PayerId" />
+          <ScalarProperty Name="O_PaymentId" ColumnName="O_PaymentId" />
+          <ScalarProperty Name="O_Transaction" ColumnName="O_Transaction" />
+          <ScalarProperty Name="O_Payment_date" ColumnName="O_Payment_date" />
+          <ScalarProperty Name="O_Id" ColumnName="O_Id" />
+          <ScalarProperty Name="O_Date" ColumnName="O_Date" />
+          <ScalarProperty Name="O_IsPaid" ColumnName="O_IsPaid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="AvonessaDBModel.Product">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+          <ScalarProperty Name="ProductCost" ColumnName="ProductCost" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="I_I_Id" ColumnName="I_I_Id" />
+          <ScalarProperty Name="C_C_Id" ColumnName="C_C_Id" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="ProductNameEnglish" ColumnName="ProductNameEnglish" />
+          <ScalarProperty Name="NotesEnglish" ColumnName="NotesEnglish" />
+          <ScalarProperty Name="ProductInStock" ColumnName="ProductInStock" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShoppingBagProducts">
+      <EntityTypeMapping TypeName="AvonessaDBModel.ShoppingBagProduct">
+        <MappingFragment StoreEntitySet="ShoppingBagProducts">
+          <ScalarProperty Name="SBP_Id" ColumnName="SBP_Id" />
+          <ScalarProperty Name="P_P_Id" ColumnName="P_P_Id" />
+          <ScalarProperty Name="SBP_Quantity" ColumnName="SBP_Quantity" />
+          <ScalarProperty Name="SB_SB_Id" ColumnName="SB_SB_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="AvonessaDBModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPostLinkDatas">
+      <EntityTypeMapping TypeName="AvonessaDBModel.tblPostLinkData">
+        <MappingFragment StoreEntitySet="tblPostLinkData">
+          <ScalarProperty Name="pl_id" ColumnName="pl_id" />
+          <ScalarProperty Name="PostLinkData" ColumnName="PostLinkData" />
+          <ScalarProperty Name="O_O_Id" ColumnName="O_O_Id" />
+          <ScalarProperty Name="HasPassed" ColumnName="HasPassed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище AvonessaDBModel.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище AvonessaDBModel.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_DeleteProductFromSB" FunctionName="Хранилище AvonessaDBModel.sp_DeleteProductFromSB" />
+    <FunctionImportMapping FunctionImportName="sp_DeleteShoppingBag" FunctionName="Хранилище AvonessaDBModel.sp_DeleteShoppingBag" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище AvonessaDBModel.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_GetCategories" FunctionName="Хранилище AvonessaDBModel.sp_GetCategories">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AvonessaDBModel.sp_GetCategories_Result">
+          <ScalarProperty Name="C_Id" ColumnName="C_Id" />
+          <ScalarProperty Name="C_C_Id" ColumnName="C_C_Id" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="CategoryNameEnglish" ColumnName="CategoryNameEnglish" />
+          <ScalarProperty Name="OrderInPage" ColumnName="OrderInPage" />
+          <ScalarProperty Name="I_I_Id" ColumnName="I_I_Id" />
+          <ScalarProperty Name="ImageFilePath" ColumnName="ImageFilePath" />
+          <ScalarProperty Name="ImageFilePath2" ColumnName="ImageFilePath2" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetOrderInsertAccountUpdateOP" FunctionName="Хранилище AvonessaDBModel.sp_GetOrderInsertAccountUpdateOP" />
+    <FunctionImportMapping FunctionImportName="sp_GetPassword" FunctionName="Хранилище AvonessaDBModel.sp_GetPassword" />
+    <FunctionImportMapping FunctionImportName="sp_GetSBQuantity" FunctionName="Хранилище AvonessaDBModel.sp_GetSBQuantity" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище AvonessaDBModel.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AvonessaDBModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище AvonessaDBModel.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AvonessaDBModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_InsertCategoryImage" FunctionName="Хранилище AvonessaDBModel.sp_InsertCategoryImage" />
+    <FunctionImportMapping FunctionImportName="sp_InsertNamePassword" FunctionName="Хранилище AvonessaDBModel.sp_InsertNamePassword" />
+    <FunctionImportMapping FunctionImportName="sp_InsertPostLinkData" FunctionName="Хранилище AvonessaDBModel.sp_InsertPostLinkData" />
+    <FunctionImportMapping FunctionImportName="sp_IUProductData" FunctionName="Хранилище AvonessaDBModel.sp_IUProductData" />
+    <FunctionImportMapping FunctionImportName="sp_IUProductImage" FunctionName="Хранилище AvonessaDBModel.sp_IUProductImage" />
+    <FunctionImportMapping FunctionImportName="sp_MakeShoppingBag" FunctionName="Хранилище AvonessaDBModel.sp_MakeShoppingBag" />
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище AvonessaDBModel.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_UpdateOrder" FunctionName="Хранилище AvonessaDBModel.sp_UpdateOrder" />
+    <FunctionImportMapping FunctionImportName="sp_UpdatePassword" FunctionName="Хранилище AvonessaDBModel.sp_UpdatePassword" />
+    <FunctionImportMapping FunctionImportName="sp_UpdateShoppingBag" FunctionName="Хранилище AvonessaDBModel.sp_UpdateShoppingBag" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище AvonessaDBModel.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="sp_GetShoppingBagById" FunctionName="Хранилище AvonessaDBModel.sp_GetShoppingBagById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AvonessaDBModel.sp_GetShoppingBagById_Result">
+          <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductCost" ColumnName="ProductCost" />
+          <ScalarProperty Name="ProductNameEnglish" ColumnName="ProductNameEnglish" />
+          <ScalarProperty Name="ImageFilePath" ColumnName="ImageFilePath" />
+          <ScalarProperty Name="ImageFilePath2" ColumnName="ImageFilePath2" />
+          <ScalarProperty Name="SBP_Quantity" ColumnName="SBP_Quantity" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="SB_SB_Id" ColumnName="SB_SB_Id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_InsertContactData" FunctionName="Хранилище AvonessaDBModel.sp_InsertContactData" />
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="AvonessaDBModel.Customer">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="CR_IsRussian" ColumnName="CR_IsRussian" />
+          <ScalarProperty Name="CR_PayerId" ColumnName="CR_PayerId" />
+          <ScalarProperty Name="CR_AddressStreet" ColumnName="CR_AddressStreet" />
+          <ScalarProperty Name="CR_AddressCity" ColumnName="CR_AddressCity" />
+          <ScalarProperty Name="CR_AddressState" ColumnName="CR_AddressState" />
+          <ScalarProperty Name="CR_AddressCountryCode" ColumnName="CR_AddressCountryCode" />
+          <ScalarProperty Name="CR_PostalCode" ColumnName="CR_PostalCode" />
+          <ScalarProperty Name="CR_Date" ColumnName="CR_Date" />
+          <ScalarProperty Name="CR_AddressCountry" ColumnName="CR_AddressCountry" />
+          <ScalarProperty Name="CR_Email" ColumnName="CR_Email" />
+          <ScalarProperty Name="CR_ContactName" ColumnName="CR_ContactName" />
+          <ScalarProperty Name="CR_Id" ColumnName="CR_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_InsertDataFromPayPal_0" FunctionName="Хранилище AvonessaDBModel.sp_InsertDataFromPayPal_0" />
+    <FunctionImportMapping FunctionImportName="sp_InsertOrderDeleteSB" FunctionName="Хранилище AvonessaDBModel.sp_InsertOrderDeleteSB" />
+    <FunctionImportMapping FunctionImportName="sp_InsertQuantityToSB" FunctionName="Хранилище AvonessaDBModel.sp_InsertQuantityToSB" />
+    <EntitySetMapping Name="ShoppingBags">
+      <EntityTypeMapping TypeName="AvonessaDBModel.ShoppingBag">
+        <MappingFragment StoreEntitySet="ShoppingBags">
+          <ScalarProperty Name="SB_Date" ColumnName="SB_Date" />
+          <ScalarProperty Name="SB_Id" ColumnName="SB_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetPhotoshoots" FunctionName="Хранилище AvonessaDBModel.sp_GetPhotoshoots">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AvonessaDBModel.sp_GetPhotoshoots_Result">
+          <ScalarProperty Name="C_Id" ColumnName="C_Id" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="CategoryNameEnglish" ColumnName="CategoryNameEnglish" />
+          <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+          <ScalarProperty Name="ProductCost" ColumnName="ProductCost" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="I_I_Id" ColumnName="I_I_Id" />
+          <ScalarProperty Name="C_C_Id" ColumnName="C_C_Id" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="ProductNameEnglish" ColumnName="ProductNameEnglish" />
+          <ScalarProperty Name="NotesEnglish" ColumnName="NotesEnglish" />
+          <ScalarProperty Name="ProductInStock" ColumnName="ProductInStock" />
+          <ScalarProperty Name="I_Id" ColumnName="I_Id" />
+          <ScalarProperty Name="ImageFilePath" ColumnName="ImageFilePath" />
+          <ScalarProperty Name="ImageFilePath2" ColumnName="ImageFilePath2" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetProducts_1" FunctionName="Хранилище AvonessaDBModel.sp_GetProducts_1">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AvonessaDBModel.sp_GetProducts_1_Result">
+          <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+          <ScalarProperty Name="ImageFilePath" ColumnName="ImageFilePath" />
+          <ScalarProperty Name="ImageFilePath2" ColumnName="ImageFilePath2" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="ProductCost" ColumnName="ProductCost" />
+          <ScalarProperty Name="ProductNameEnglish" ColumnName="ProductNameEnglish" />
+          <ScalarProperty Name="NotesEnglish" ColumnName="NotesEnglish" />
+          <ScalarProperty Name="ProductInStock" ColumnName="ProductInStock" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="CategoryNameEnglish" ColumnName="CategoryNameEnglish" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

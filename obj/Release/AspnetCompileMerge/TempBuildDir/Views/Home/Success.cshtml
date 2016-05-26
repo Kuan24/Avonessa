@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Success";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var lang = window.navigator.language;
+        if (lang.toLowerCase().indexOf("ru") >= 0) {
+            $('[id="h_success"]').text('Служба поддержки отправит ответ на указанный e-mail в течении 1-24 часов.');
+        }
+        else {
+            $('[id="h_success"]').text('Support service will send an answer to the specified e-mail within 1-24 hours.');
+        }
+    });
+    </script>
+}
+
+<h4 id="h_success"></h4>
+

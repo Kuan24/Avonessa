@@ -1,0 +1,119 @@
+﻿@model List<AvonessaMVC5.sp_GetProducts_1_Result>
+@section metatags
+{
+    <meta name="Description" content="Category: @ViewBag.CategoryNameEnglish." />
+    <meta name="Keywords" content="@ViewBag.CategoryNameEnglish" />
+    <meta name="Описание" content="Категория: @ViewBag.CategoryName." />
+    <meta name="Ключевые слова" content="@ViewBag.CategoryName" />
+}
+@{
+    if (Request.ServerVariables["HTTP_ACCEPT_LANGUAGE"].ToString().Substring(0, 2) != "ru")
+    {
+        ViewBag.Title = ViewBag.CategoryNameEnglish;
+    }
+    else
+    {
+        ViewBag.Title = ViewBag.CategoryName;
+    }
+}
+@section Scripts {
+<script type="text/javascript">
+    $(document).ready(function () {
+        var lang = window.navigator.language;
+        if (lang.toLowerCase().indexOf("ru") >= 0) {
+            $('[id="Code"]').text("Код:");
+            $('[id="d_CatNameEn"]').remove();
+            $('[id="d_products_en"]').remove();
+        }
+        else {
+            $('[id="Code"]').text("Code:");
+            $('[id="d_CatNameRu"]').remove();
+            $('[id="d_products_ru"]').remove();
+        }
+    });
+</script>
+}
+<div class="shopBag" id="d_CatNameEn"><h4>@ViewBag.CategoryNameEnglish</h4>
+</div>
+@if (Model.Count() > 0)
+    { 
+        @:<table id="d_products_en" class="center-products">
+            @:<tr>
+    } 
+        @for (int i = 0; i < Model.Count(); i++)
+        { 
+            if (i != 0 && i % 5 == 0)
+            {
+                @:</tr>
+                @:<tr>
+            }
+            @:<td class="tdTop">
+                var item = Model[i];
+                     <a href='@Url.Action("_Product", "Home", new { id = 0, p_id = item.P_Id })'>
+                        @item.ProductNameEnglish
+                    </a><br />
+                    <a href='@Url.Action("_Product", "Home", new { id = 0, p_id = item.P_Id })'>
+                        <img src='@Url.Content(item.ImageFilePath)' />
+                    </a>
+                    <br />
+                    <div id="first">
+                        <a onclick="window.location.replace('@Url.Action("_Product", "Home", new { id = 0, p_id = item.P_Id })'); return false"
+                           href="@Url.Content(item.ImageFilePath2)">
+                            Enlarge Image
+                        </a>
+                    </div>
+                    <label class="labelTxt">
+                        @string.Format(new System.Globalization.CultureInfo("en-US"), "{0:c}", @item.ProductCost)
+                    </label>
+                        <span id="Code" class="grayTxt"></span><span class="grayTxt"> @item.P_Id</span>
+                    <hr />
+            @:</td>
+        } 
+        @if (Model.Count() > 0)
+        { 
+    @:</tr>
+@:</table>
+} 
+<div class="shopBag" id="d_CatNameRu"><h4>@ViewBag.CategoryName</h4>
+</div>
+@if (Model.Count() > 0)
+    { 
+        @:<table id="d_products_ru" class="center-products">
+            @:<tr>
+    } 
+        @for (int i = 0; i < Model.Count(); i++)
+        { 
+            if (i != 0 && i % 5 == 0)
+            {
+                @:</tr>
+                @:<tr>
+            }
+            @:<td class="tdTop">
+            var item = Model[i];
+                <a href='@Url.Action("_Product", "Home", new { id = 0, p_id = item.P_Id })'>
+                    @item.ProductName
+                </a><br />
+                <a href='@Url.Action("_Product", "Home", new { id = 0, p_id = item.P_Id })'>
+                    <img src='@Url.Content(item.ImageFilePath)' />
+                </a>
+                <br />
+                <div id="first">
+                    <a onclick="window.location.replace('@Url.Action("_Product", "Home", new { id = 0, p_id = item.P_Id })'); return false"
+                       href="@Url.Content(item.ImageFilePath2)">
+                        Увеличить
+                    </a>
+                </div>
+                <label class="labelTxt">
+                    @string.Format(new System.Globalization.CultureInfo("en-US"), "{0:c}", @item.ProductCost)
+                </label>
+                <span id="Code" class="grayTxt"></span><span class="grayTxt"> @item.P_Id</span>
+                <hr />
+            @:</td>
+        } 
+        @if (Model.Count() > 0)
+        { 
+    @:</tr>
+@:</table>
+} 
+
+

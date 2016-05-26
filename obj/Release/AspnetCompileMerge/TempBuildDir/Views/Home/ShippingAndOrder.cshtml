@@ -1,0 +1,68 @@
+﻿@model AvonessaMVC5.Models.ShippingAndOrderModel
+@{
+    if (Request.ServerVariables["HTTP_ACCEPT_LANGUAGE"].ToString().Substring(0, 2) == "ru")
+    {
+        if (Model.WhichPage == "Shipping")
+        {
+            ViewBag.Title = "Доставка";
+        }
+        else
+        {
+            ViewBag.Title = "Как оформить заказ на сайте";
+        }
+    }
+    else
+    {
+        if (Model.WhichPage == "Shipping")
+        {
+            ViewBag.Title = "Shipping";
+        }
+        else
+        {
+            ViewBag.Title = "How to order online";
+        }
+    }
+}
+<style>
+    ol {
+        list-style-type: decimal; /* Заглавные буквы */
+    }
+</style>
+@if (Model.WhichPage == "Shipping")
+{
+    if (Request.ServerVariables["HTTP_ACCEPT_LANGUAGE"].ToString().Substring(0, 2) == "ru")
+    {
+        <h4>Доставка</h4><br/>
+        <label style="font-weight:normal;">Отправка товаров осуществляется в течение 2 дней после оплаты.<br/>
+        Стоимость доставки составляет $8.75 USD.
+        </label>
+    }
+    else
+    {
+        <h4>Shipping</h4><br />
+        <label style="font-weight:normal;">Sending the items within 2 days after payment.<br/>
+        Shipping cost is $ 8.75 USD
+        </label>
+    }
+}
+else
+{
+    if (Request.ServerVariables["HTTP_ACCEPT_LANGUAGE"].ToString().Substring(0, 2) == "ru")
+    {
+        <h4>Как оформить заказ на сайте</h4><br />
+        <ol>
+            <li>Добавьте понравившиеся украшения из каталога в покупную сумку </li>
+            <li>Для оформления заказа необходимо указать свое имя, адрес эл. почты, адрес для поставки</li>
+        </ol>
+    }
+    else
+    {
+        <h4>How to order online</h4><br />
+        <ol>
+            <li>Add your favorite decoration from the catalog to the shopping bag.</li>
+            <li>To place an order, include your name, e-mail, address for delivery on PayPal site, please.</li>
+        </ol>
+    }
+}
+
+

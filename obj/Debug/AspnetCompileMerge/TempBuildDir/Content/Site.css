@@ -1,0 +1,244 @@
+﻿html,
+body {
+    padding-top: 0px;
+    padding-bottom: 20px;
+    height: 100%;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+/*Для меню из конструктора====================================*/
+#custom-bootstrap-menu.navbar-default .navbar-brand {
+    color: rgba(119, 119, 119, 1);
+}
+#custom-bootstrap-menu.navbar-default {
+    font-size: 14px;
+    background-color: rgba(249, 230, 250, 1);
+    border-width: 1px;
+    border-radius: 4px;
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a {
+    color: rgba(119, 119, 119, 1);
+    background-color: rgba(248, 248, 248, 0);
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:focus {
+    color: rgba(51, 51, 51, 1);
+    background-color: rgba(235, 197, 233, 1);
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a,
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:focus {
+    color: rgba(85, 85, 85, 1);
+    background-color: rgba(233, 206, 235, 1);
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle {
+    border-color: #e9ceeb;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus {
+    background-color: #e9ceeb;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle .icon-bar {
+    background-color: #e9ceeb;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover .icon-bar,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus .icon-bar {
+    background-color: #f9e6fa;
+}
+/*Свои настройки меню========================================*/
+.navbar {
+    padding: 0 58px;
+    margin-top:inherit;
+}
+
+/*для preview картинки==*/
+#imgPreviewWithStyles {
+    background: #9f6eab url(../Images/ajax-loader.gif) no-repeat center;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    padding: 7px;
+    z-index: 999;
+    border: none;
+}
+
+.loading {
+    height: 32px;
+    width: 32px;
+}
+/*для таблицы в _Product.cshtml=*/
+.ProductTable{
+    width:50%; 
+    margin-left:25%; 
+    margin-right:25%;
+}
+.tdProduct{
+    width: 25%;
+    vertical-align: top;
+}
+/*Buttons*/
+.ButtonAddToBagRu {
+    background:url(../images/AddToBagRu.gif) no-repeat;
+    cursor:pointer;
+    width: 156px;
+    height: 27px;
+    border: none;
+}
+.ButtonAddToBagEn {
+    background:url(../Images/AddToBagEn.gif) no-repeat;
+    cursor:pointer;
+    width: 156px;
+    height: 27px;
+    border: none;
+}
+.ButtonPayRu {
+    background:url(../images/PayRu.gif) no-repeat;
+    cursor:pointer;
+    width: 156px;
+    height: 27px;
+    border: none;
+}
+.ButtonPayEn {
+    background:url(../images/PayEng.gif) no-repeat;
+    cursor:pointer;
+    width: 156px;
+    height: 27px;
+    border: none;
+}
+.ButtonSendMailRu {
+    background:url(../images/SendMailRu.gif) no-repeat;
+    cursor:pointer;
+    width: 156px;
+    height: 27px;
+    border: none;
+}
+.ButtonSendMailEn {
+    background:url(../images/SendMailEn.gif) no-repeat;
+    cursor:pointer;
+    width: 156px;
+    height: 27px;
+    border: none;
+}
+/*===========================*/
+.labelTxt{
+    font-weight:normal;
+}
+.grayTxt{
+    color:darkgray;
+}
+.redTxt{
+    color:red;
+}
+.tbQuantityClass {
+    width: 30px;
+    border: inset;
+    border-width: thin;
+    border-color: gray;
+}
+
+.shopBag{
+    text-align:center;
+}
+.tableShopBag{
+    background-color:#f9e6fa;
+    border-color:White;
+    border-width:1px;
+    border-style:solid;
+    
+}
+/*цвет a href====================*/
+a:visited {
+    color: #c4279f !important;
+}
+
+a:active {
+    color: #922177 !important;
+}
+
+a:hover{
+    text-decoration:none;
+}
+
+a {
+    color: #c4279f !important;
+}
+/*==============================*/
+.fontBold{
+    font-weight:bold;
+}
+.navbar {
+    position: relative;
+}
+.brand {
+    position:absolute;
+    left: 87%;
+    margin-left: -57px !important;  /* 50% of your logo width */
+    margin-top:12px !important;
+    display: block;
+}
+.brand2 {
+    position:absolute;
+    left: 87%;
+    margin-left: -50px !important;  /* 50% of your logo width */
+   
+    display: block;
+}
+/*Валидация============*/
+label.error {
+  color: red;
+  font-weight:normal;
+  margin-left: 5px;
+}
+ 
+input.error {
+  border: 1px inset red;
+}
+.tbContactsClass {
+    width: 190px;
+    border: inset;
+    border-width: thin;
+    border-color: gray;
+}
+.center {
+    width:50%; 
+    margin-left:25%; 
+    margin-right:25%;
+}
+
+.contacts{
+    width: 170px;
+    vertical-align:text-top;
+    text-align: right;
+}
+/* Wrapper for page content to push down footer */
+ #wrap {
+   min-height: 100%;
+   height: auto !important;
+   height: 100%;
+   /* Negative indent footer by it's height */
+   margin: 0 auto -60px;
+ }
+
+ #push,
+ #footer {
+   height: 60px;
+ }
+
+

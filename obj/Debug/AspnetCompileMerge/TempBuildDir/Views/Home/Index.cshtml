@@ -1,0 +1,59 @@
+﻿@model IEnumerable<AvonessaMVC5.sp_GetCategories_Result>
+@{
+    if (Request.ServerVariables["HTTP_ACCEPT_LANGUAGE"].ToString().Substring(0, 2) != "ru")
+    {
+        ViewBag.Title = "internet shopping, japanese style to your jewelry";
+    }
+    else
+    {
+        ViewBag.Title = "интернет магазин, японский стиль украшений";
+    }
+}
+
+@section Scripts {
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var lang = window.navigator.language;
+        if (lang.toLowerCase().indexOf("ru") >= 0) {
+            $('[id="d_CatNameEn0"]').hide();
+            $('[id="d_CatNameEn"]').hide();
+        }
+        else {
+            $('[id="d_CatNameRu0"]').hide();
+            $('[id="d_CatNameRu"]').hide();
+        }
+    });
+    </script>
+}
+<div class="shopBag" id="d_CatNameRu0">
+    <h4>@ViewBag.CategoryNameRu</h4>
+</div>
+<div class="row" id="d_CatNameRu">
+    @foreach (var item in Model)
+    {
+        <div class="col-xs-6 col-sm-3">
+            <a href='@Url.Action("Products", "Home", new { Id = item.C_Id })'>
+                @item.CategoryName
+            </a><br />
+            <a href='@Url.Action("Products", "Home", new { Id = item.C_Id })'>
+                <img src='@Url.Content(item.ImageFilePath)' />
+            </a>
+        </div>
+    }
+</div>
+<div class="shopBag" id="d_CatNameEn0">
+    <h4>@ViewBag.CategoryNameEn</h4>
+</div>
+<div class="row" id="d_CatNameEn">
+    @foreach (var item in Model)
+    {
+        <div class="col-xs-6 col-sm-3">
+            <a href='@Url.Action("Products", "Home", new { Id = item.C_Id })'>
+                @item.CategoryNameEnglish
+            </a><br />
+            <a href='@Url.Action("Products", "Home", new { Id = item.C_Id })'>
+                <img src='@Url.Content(item.ImageFilePath)' />
+            </a>
+        </div>
+    }
+</div>

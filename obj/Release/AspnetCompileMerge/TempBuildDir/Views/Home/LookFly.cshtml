@@ -1,0 +1,46 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LookFly</title>
+    @*<script src="~/Scripts/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://avonessa.com/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnclickme').click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "http://avonessa.com/WebServices/Holiday.asmx/HelloWorld",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        alert('success');
+                    },
+                    error: function (e) {
+                        alert('error: ' + e.msg);
+                    }
+                });
+            });
+        });
+    </script>*@  
+</head>
+<body>
+    <div> 
+        @using (Html.BeginForm("FlyResponse", "Home", FormMethod.Post))
+        {
+            @ViewBag.ffh
+            <input id="tbID" name="tbID" type="text" size="5" />
+            <p><button id="btGetData" type="submit">Получить данные</button></p>
+        }
+        @*<p><button id="btnclickme">clickme</button></p>*@
+
+    </div>
+</body>
+</html>

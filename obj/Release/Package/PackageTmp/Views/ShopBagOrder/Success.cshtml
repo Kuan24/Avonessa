@@ -1,0 +1,24 @@
+﻿
+@{
+    if (Request.ServerVariables["HTTP_ACCEPT_LANGUAGE"].ToString().Substring(0, 2) != "ru")
+    {
+        ViewBag.Title = "internet shopping, japanese style to your jewelry";
+    }
+    else
+    {
+        ViewBag.Title = "интернет магазин, японский стиль украшений";
+    }
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var lang = window.navigator.language;
+        if (lang.toLowerCase().indexOf("ru") >= 0)
+            $('[id="SuccessMsg"]').text('Оплата прошла успешно. Через несколько минут, пожалуйста, проверьте E-Mail. Ждите посылку.');
+        else
+            $('[id="SuccessMsg"]').text('Payment was successful. Check E-Mail after a few minutes, please. Wait a parcel.');
+    });
+</script>
+<h4><span id="SuccessMsg"></span></h4>
+
+

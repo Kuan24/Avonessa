@@ -1,0 +1,378 @@
+﻿@model IEnumerable<AvonessaMVC5.sp_GetShoppingBagById_Result>
+
+@{
+    if (Request.ServerVariables["HTTP_ACCEPT_LANGUAGE"].ToString().Substring(0, 2) != "ru")
+    {
+        ViewBag.Title = "Shopping Bag";
+    }
+    else
+    {
+        ViewBag.Title = "Покупная сумка";
+    }
+}
+<div class="shopBag">
+    <h4 id="ShopBag"></h4>
+</div>
+@using (Html.BeginForm("MakePayPalTransactionRu", "ShopBagOrder", FormMethod.Post, new { id = "SBCFormRu" }))
+{
+    <table id="tableSBRu" align="center" cellpadding="10" class="tableShopBag">
+        <tr>
+            <th class="shopBag"><label id="Product">Товар</label></th>
+            <th class="shopBag"><label id="ProductName">Название</label></th>
+            <th class="shopBag"><label id="ProductQuantity">Количество</label></th>
+            <th class="shopBag"><label id="ProductCost">Цена</label></th>
+            <th class="shopBag"><label id="L_Sum">Сумма</label></th>
+            <th class="shopBag"><label id="L_Delete">Удалить</label></th>
+        </tr>
+
+        @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            string sbUrl = @Url.Action("ShoppingBag", "ShopBagOrder");
+            sbUrl += "?sb_id=" + item.value.SB_SB_Id + "&p_id=" + item.value.P_Id;
+
+            <tr>
+                <td class="shopBag">
+                    <img src='@Url.Content(item.value.ImageFilePath)' />
+                    <br />
+                    <div id="first" class="shopBag">
+                        <a onclick="window.location.replace('@Url.Action("ShoppingBag", "ShopBagOrder", new { sb_id = item.value.SB_SB_Id })'); return false"
+                           href="@Url.Content(item.value.ImageFilePath2)" id="EnlargeImageRuEn">
+                            Увеличить
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    @item.value.ProductName<br />
+                    <span id="Code" class="grayTxt">Код: @item.value.P_Id</span>
+                </td>
+                <td class="shopBag">
+                    <input type="text" id="qty_item_ru_@item.i" name="qty_item_ru_@item.i"
+                           class="tbQuantityClass" value="@item.value.SBP_Quantity" />
+                </td>
+                <td class="shopBag" id="price_item_ru_@item.i">
+                    @string.Format(new System.Globalization.CultureInfo("en-US"), "{0:c}", @item.value.ProductCost)
+                </td>
+                <td class="shopBag" id="total_item_ru_@item.i">
+                    $
+                </td>
+                <td class="shopBag">
+                    <div id="first" class="shopBag">
+                        <a href="@sbUrl" id="hrefDel" onclick="showPageLoadingSpinner()">
+                            <img src="~/Images/Delete2.gif" />
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td align="right" colspan="4"><strong>Общий итог: </strong></td>
+            <td id="grandTotalRu" align="center">$</td>
+            <td></td>
+        </tr>
+    </table>
+    <div class="shopBag" id="cTitleRu">
+        <h4 id="ContactsH4Ru">Адресные данные</h4>
+    </div>
+    <table id="ContactsRu" class="center">
+        <tr>
+            <td class="contacts">
+                <label class="labelTxt" for="postalCodeRu">Почтовый индекс: </label>
+            </td>
+            <td>
+                <input type="text" class="tbContactsClass" name="postalCodeRu" value="">
+            </td>
+        </tr>
+        <tr>
+            <td class="contacts">
+                <label class="labelTxt" for="yourNameRu">Ваше Имя: </label>
+            </td>
+            <td>
+                <input type="text" class="tbContactsClass" name="yourNameRu" value="">
+            </td>
+        </tr>
+        <tr>
+            <td class="contacts">
+                <label class="labelTxt" for="emailRu">E-Mail: </label>
+            </td>
+            <td>
+                <input type="text" class="tbContactsClass" name="emailRu" value="">
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <td>
+                <br />
+                <input type="submit" name="submit" id="SaveData" class="ButtonPayRu" value="">
+            </td>
+        </tr>
+    </table>
+    <table class="center" id="submitRu">
+        <tr>
+            <td>
+                <!-- PayPal Logo --><table border="0" cellpadding="10" cellspacing="0" align="center"><tr><td align="center"></td></tr><tr><td align="center"><a href="#" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700');"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark"></a></td></tr></table><!-- PayPal Logo -->
+            </td>
+            <td>
+                <br />
+                <input type="submit" name="submit" value="" class="ButtonPayRu">
+            </td>
+        </tr>
+    </table>
+}  
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "SBCFormEn" }))
+{
+    <table id="tableSBEn" align="center" cellpadding="10" class="tableShopBag">
+        <tr>
+            <th class="shopBag"><label id="Product">Product</label></th>
+            <th class="shopBag"><label id="ProductName">Name</label></th>
+            <th class="shopBag"><label id="ProductQuantity">Quantity</label></th>
+            <th class="shopBag"><label id="ProductCost">Cost</label></th>
+            <th class="shopBag"><label id="L_Sum">Sum</label></th>
+            <th class="shopBag"><label id="L_Delete">Delete</label></th>
+        </tr>
+        @foreach (var item in Model.Select((value, i) => new
+        {
+            i,
+            value
+        }))
+        {
+            string sbUrl = @Url.Action("ShoppingBag", "ShopBagOrder");
+            sbUrl += "?sb_id=" + item.value.SB_SB_Id + "&p_id=" + item.value.P_Id;
+        <tr>
+            <td class="shopBag">
+                <img src='@Url.Content(item.value.ImageFilePath)' />
+                <br />
+                <div id="first" class="shopBag">
+                    <a onclick="window.location.replace('@Url.Action("ShoppingBag", "ShopBagOrder", new { sb_id = item.value.SB_SB_Id })'); return false"
+                       href="@Url.Content(item.value.ImageFilePath2)" id="EnlargeImageRuEn">
+                        Enlarge Image
+                    </a>
+                </div>
+            </td>
+            <td>
+                @item.value.ProductNameEnglish<br />
+                <span id="Code" class="grayTxt">Код: @item.value.P_Id</span>
+            </td>
+            <td class="shopBag">
+                <input type="text" id="qty_item_en_@item.i" name="qty_item_en_@item.i"
+                       class="tbQuantityClass" value="@item.value.SBP_Quantity" />
+            </td>
+            <td class="shopBag" id="price_item_en_@item.i">
+                @string.Format(new System.Globalization.CultureInfo("en-US"), "{0:c}", @item.value.ProductCost)
+            </td>
+            <td class="shopBag" id="total_item_en_@item.i">
+                $
+            </td>
+            <td class="shopBag">
+                <div id="first" class="shopBag">
+                    <a href="@sbUrl" id="hrefDel">
+                        <img src="~/Images/Delete2.gif" />
+                    </a>
+                </div>
+            </td>
+        </tr>
+        }
+        <tr>
+            <td align="right" colspan="4"><strong>Total: </strong></td>
+            <td id="grandTotalEn" align="center">$</td>
+            <td></td>
+        </tr>
+    </table>
+    <div class="shopBag" id="cTitleEn">
+        <h4 id="ContactsH4En">Address Data</h4>
+    </div>
+    <table id="ContactsEn" class="center">
+        <tr>
+            <td class="contacts">
+                <label class="labelTxt" for="postalCodeEn">Postal (ZIP) Code: </label>
+            </td>
+            <td>
+                <input type="text" class="tbContactsClass" name="postalCodeEn" value="">
+            </td>
+        </tr>
+        <tr>
+            <td class="contacts">
+                <label class="labelTxt" for="yourNameEn">Your Name: </label>
+            </td>
+            <td>
+                <input type="text" class="tbContactsClass" name="yourNameEn" value="">
+            </td>
+        </tr>
+        <tr>
+            <td class="contacts">
+                <label class="labelTxt" for="emailEn">E-Mail: </label>
+            </td>
+            <td>
+                <input type="text" class="tbContactsClass" name="emailEn" value="">
+            </td>
+        </tr>
+        <tr><td></td>
+            <td>
+                <br />
+                <input type="submit" name="submit" value="" class="ButtonPayEn">
+            </td>
+        </tr>
+    </table>
+    <table class="center" id="submitEn">
+        <tr>
+            <td>
+                <!-- PayPal Logo --><table border="0" cellpadding="10" cellspacing="0" align="center"><tr><td align="center"></td></tr><tr><td align="center"><a href="#" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700');"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark"></a></td></tr></table><!-- PayPal Logo -->
+            </td>
+            <td>
+                <br />
+                <input type="submit" id="" name="submit" value="" class="ButtonPayEn">
+            </td>
+        </tr>
+    </table>
+}
+
+@section scripts{
+    <script src="http://www.pengoworks.com/workshop/jquery/field/jquery.field.js"></script>
+    <script src="http://www.pengoworks.com/workshop/jquery/calculation/jquery.calculation.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        //$("[name^=qty_item_ru_]").bind(" keyup", recalc);
+        $("[name^=qty_item_ru_]").keyup(recalc);
+        $("[name^=qty_item_en_]").keyup(recalcEn);
+
+        recalcEn();
+        recalc();
+
+        var sb = $.cookie("AvonessaShoppingBag");
+        if (sb == null) {
+            var lang = window.navigator.language;
+            if (lang.toLowerCase().indexOf("ru") >= 0)
+                $('[id="ShopBag"]').text('Сумка пуста');
+            else
+                $('[id="ShopBag"]').text('Shopping Bag is empty');
+            $('[id="tableSBEn"]').hide();
+            $('[id="tableSBRu"]').hide();
+            $('[id="cTitleRu"]').hide();
+            $('[id="cTitleEn"]').hide();
+            $('[id="ContactsRu"]').hide();
+            $('[id="ContactsEn"]').hide();
+            $('[id="submitRu"]').hide();
+            $('[id="submitEn"]').hide();
+        }
+        //На случай только для PayPal:========
+        $('[id="cTitleRu"]').hide();
+        $('[id="cTitleEn"]').hide();
+        $('[id="ContactsRu"]').hide();
+        $('[id="ContactsEn"]').hide();
+        //====================================
+    });
+
+    function recalc() {
+        $("[id^=total_item_ru]").calc(
+            "qtyRu * priceRu",
+            {
+                qtyRu: $("[name^=qty_item_ru_]"),
+                priceRu: $("[id^=price_item_ru_]")
+            },
+            function (s) {
+                return "$" + s.toFixed(2);
+            },
+            function ($this) {
+                var sum = $this.sum();
+                $("#grandTotalRu").text("$" + sum.toFixed(2));
+            }
+        );
+    }
+
+    function recalcEn() {
+        $("[id^=total_item_en]").calc(
+            "qtyEn * priceEn",
+            {
+                qtyEn: $("[name^=qty_item_en_]"),
+                priceEn: $("[id^=price_item_en_]")
+            },
+            function (sEn) {
+                return "$" + sEn.toFixed(2);
+            },
+            function ($thisEn) {
+                var sum2 = $thisEn.sum();
+                $("#grandTotalEn").text("$" + sum2.toFixed(2));
+            }
+        );
+    }
+    // Русский, Английский:
+    var lang = window.navigator.language;
+    if (lang.toLowerCase().indexOf("ru") >= 0) {
+        $('[id="ShopBag"]').text('Покупная сумка');
+        $('[id="tableSBEn"]').hide();
+        $('[id="ContactsH4En"]').hide();
+        $('[id="ContactsEn"]').hide();
+        $('[id="submitEn"]').hide();
+    }
+    else {
+        $('[id="ShopBag"]').text('Shopping Bag');
+        $('[id="tableSBRu"]').hide();
+        $('[id="ContactsH4Ru"]').hide();
+        $('[id="ContactsRu"]').hide();
+        $('[id="submitRu"]').hide();
+    }
+    //Валидация Русский (исправлено для PayPal id формы SBCFormRu_, а настоящее SBCFormRu):
+    $("#SBCFormRu_").validate({
+        rules: {
+            postalCodeRu: {
+                required: true,
+                rangelength: [4, 20]
+            },
+            yourNameRu: {
+                required: true,
+            },
+            emailRu: {
+                required: true,
+                email: true
+            }
+        },
+        messages: {
+            postalCodeRu: {
+                required: "Введите почтовый индекс",
+                rangelength: "Длина должна быть от {0} до {1} знаков"
+            },
+            yourNameRu: {
+                required: "Введите Ваше Имя"
+            },
+            emailRu: {
+                required: "Введите E-mail",
+                email: "Неверный формат E-mail"
+            }
+        }
+    });
+        //Validation English (исправлено для PayPal id формы SBCFormEn_, а настоящее SBCFormEn):
+    $("#SBCFormEn_").validate({
+        rules: {
+            postalCodeEn: {
+                required: true,
+                rangelength: [4, 20]
+            },
+            yourNameEn: {
+                required: true,
+            },
+            emailEn: {
+                required: true,
+                email: true
+            }
+        },
+        messages: {
+            postalCodeEn: {
+                required: "Enter Postal Code",
+                rangelength: "The length of the Postal Code should be from {0} to {1} characters"
+            },
+            yourNameEn: {
+                required: "Enter Your Name"
+            },
+            emailEn: {
+                required: "Enter your E-mail",
+                email: "Invalid E-mail format"
+            }
+        }
+    });
+    </script>
+}
+
+
+

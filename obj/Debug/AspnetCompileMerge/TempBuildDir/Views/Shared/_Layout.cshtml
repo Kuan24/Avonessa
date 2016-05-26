@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="SHORTCUT ICON" href="http://www.avonessa.com/images/flower1.ico" />
+    <script>
+        $(document).ready(function () {
+            var sb = $.cookie("AvonessaShoppingBag");
+            var url = "@Url.Action("ShoppingBag", "ShopBagOrder")";
+            url += "?" + sb;
+            $('[name="hrefShopBagRuEn"]').attr("href", url);
+            $('[name="hrefShopBagRuEn"]').attr("onclick", "showPageLoadingSpinner()");
+            $('[name="hrefShopBagRuEn"]').attr("class", "fontBold");
+
+            $.ajax({
+                url: '@Url.Action("GetShoppingBagQuantity", "ShopBagOrder")',
+                success: function (data) {
+                    var linkText = "";
+                    if (lang.toLowerCase().indexOf("ru") >= 0) {
+                        //"Русский язык"
+                        linkText = "Покупная сумка (" + data + ")";
+                        $('[name="hrefShopBagRuEn"]').text(linkText);
+                    }
+                    else {
+                        //English
+                        linkText = "Shopping Bag (" + data + ")";
+                        $('[name="hrefShopBagRuEn"]').text(linkText);
+                    }
+                },
+                cache: false
+            });
+            //alert(dVar);
+            var lang = window.navigator.language;
+            //Shopping Bag:
+            if ($('[name="hrefShopBagRuEn"]').text("")) {
+                if (lang.toLowerCase().indexOf("ru") >= 0) 
+                    $('[name="hrefShopBagRuEn"]').text('Покупная сумка');
+                else
+                    $('[name="hrefShopBagRuEn"]').text('Shopping Bag');
+            } 
+            //Меню           
+            if (lang.toLowerCase().indexOf("ru") >= 0)
+            {
+                //"Русский язык"
+                $('[name="Catalog"]').text("Каталог украшений");
+                $('[name="Wedding"]').text("Свадебные аксессуары");
+                $('[name="Delivery"]').text("Доставка");
+                $('[name="Help"]').text("Помощь");
+            }
+            else
+            {
+                //English
+                $('[name="Catalog"]').text("Catalog of Adornments");
+                $('[name="Wedding"]').text("Wedding Accessories");
+                $('[name="Delivery"]').text("Delivery");
+                $('[name="Help"]').text("Help");
+            }
+        });
+</script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script type="text/javascript">
+    function showPageLoadingSpinner() {
+        $('#ajaxLoaderDiv').show();
+    }
+
+    function hidePageLoadingSpinner() {
+        setTimeout(function () {
+            $('.ajax-loader').remove();
+            $('#ajaxLoaderDiv').hide();
+        }, 20000);
+    }
+
+</script>
+
+</head>
+<body>
+    <div id="ajaxLoaderDiv" style="position:fixed; top:40%; left:45%; z-index:1234; display:none;">
+        <img src="@Url.Content("~/Images/ajax-loader.gif")" alt="Loading..." class="ajax-loader" />
+    </div>
+    <div id="custom-bootstrap-menu" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" name="Brand" href="@Url.Action("Index", "Home")">Avonessa.com</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder">
+                    <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </button>
+            </div>
+            <!-- Non-collapsing right-side icons -->
+            <ul class="nav navbar-nav brand2">
+                <li>
+                    <a href="" name="hrefShopBagRuEn" class="fa fa-cog"></a>
+                </li>
+            </ul>
+            <a class="brand" style="margin: 0; float: none;" href="#">
+                <img src="~/Images/ShoppingBag2.gif" />
+            </a>
+            <div class="collapse navbar-collapse navbar-menubuilder">
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <a href="@Url.Action("Index", "Home", new { id = 0 })" name="Catalog" class="fontBold"></a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Home", new { id = 13 })" name="Wedding" class="fontBold"></a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Home")" class="fontBold" name="Delivery"></a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Mailer", "Home")" class="fontBold" name="Help" onclick="showPageLoadingSpinner()"></a>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    @*<div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year – Avonessa.com</p>
+        </footer>
+    </div>*@
+    <div id="wrap">
+        <div class="container">@RenderBody()</div>
+        <div id="push"></div>
+    </div>
+    <footer id="footer">
+        <div class="container">
+            &copy; @DateTime.Now.Year – Avonessa.com
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

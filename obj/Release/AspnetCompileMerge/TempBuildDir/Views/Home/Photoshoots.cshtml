@@ -1,0 +1,106 @@
+﻿@model List<AvonessaMVC5.sp_GetPhotoshoots_Result>
+@section metatags
+{
+    <meta name="Description" content="internet-shop Avonessa, photoshoots" />
+    <meta name="Описание" content="интеренет-магазин Avonessa, фотосессии" />
+}
+@{
+    if (Request.ServerVariables["HTTP_ACCEPT_LANGUAGE"].ToString().Substring(0, 2) != "ru")
+    {
+        ViewBag.Title = "Photoshoots";
+    }
+    else
+    {
+        ViewBag.Title = "Фотосессии";
+    }
+}
+@section Scripts {
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var lang = window.navigator.language;
+        if (lang.toLowerCase().indexOf("ru") >= 0) {
+            $('[id="d_products_en"]').hide();
+            $('[id="d_NameEn"]').hide();
+        }
+        else {
+            $('[id="d_products_ru"]').hide();
+            $('[id="d_NameRu"]').hide();
+        }
+    });
+    </script>
+}
+
+<h2></h2>
+
+<div class="shopBag" id="d_NameEn"><h4>Photoshoots</h4>
+</div>
+@if (Model.Count() > 0)
+    { 
+        @:<table id="d_products_en" class="center-products">
+            @:<tr>
+    } 
+        @for (int i = 0; i < Model.Count(); i++)
+        { 
+            if (i != 0 && i % 5 == 0)
+            {
+                @:</tr>
+                @:<tr>
+            }
+            @:<td class="tdTop">
+                var item = Model[i];
+                        @item.ProductNameEnglish
+                    <br />
+                    <a href='@Url.Action("_Product", "Home", new { id = 0, p_id = item.P_Id })'>
+                        <img src='@Url.Content(item.ImageFilePath)' />
+                    </a>
+                    <br />
+                    <div id="first">
+                        <a onclick="window.location.replace('@Url.Action("_Product", "Home", new { id = 0, p_id = item.P_Id })'); return false"
+                           href="@Url.Content(item.ImageFilePath2)">
+                            Enlarge Image
+                        </a>
+                    </div>
+                    <hr />
+            @:</td>
+        } 
+        @if (Model.Count() > 0)
+        { 
+    @:</tr>
+@:</table>
+} 
+<div class="shopBag" id="d_NameRu"><h4>Фотосессии</h4>
+</div>
+@if (Model.Count() > 0)
+    { 
+        @:<table id="d_products_ru" class="center-products">
+            @:<tr>
+    } 
+        @for (int i = 0; i < Model.Count(); i++)
+        { 
+            if (i != 0 && i % 5 == 0)
+            {
+                @:</tr>
+                @:<tr>
+            }
+            @:<td class="tdTop">
+            var item = Model[i];
+                    @item.ProductName
+                <br />
+                <a href='@Url.Action("_Product", "Home", new { id = 0, p_id = item.P_Id })'>
+                    <img src='@Url.Content(item.ImageFilePath)' />
+                </a>
+                <br />
+                <div id="first">
+                    <a onclick="window.location.replace('@Url.Action("_Product", "Home", new { id = 0, p_id = item.P_Id })'); return false"
+                       href="@Url.Content(item.ImageFilePath2)">
+                        Увеличить
+                    </a>
+                </div>
+                <hr />
+            @:</td>
+        } 
+        @if (Model.Count() > 0)
+        { 
+    @:</tr>
+@:</table>
+} 

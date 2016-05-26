@@ -1,0 +1,131 @@
+﻿@model List<AvonessaMVC5.sp_GetCategories_Result>
+@section metatags
+{
+    <meta name="Description" content="internet-shop, jewellery" />
+    <meta name="Описание" content="интеренет-магазин, ювелирные изделия"/>
+
+    @*<meta property="og:title" content="Internet shopping, Japanese style to your jewelry" />
+    <meta property="og:description" content="internet-shop, jewellery" />
+    <meta property="og:url" content="http://avonessa.com/Home/Index" />
+    <meta property="og:image" content="http://avonessa.com/images/AvonessaLogo2.gif" />*@
+}
+@{
+    if (Request.ServerVariables["HTTP_ACCEPT_LANGUAGE"].ToString().Substring(0, 2) != "ru")
+    {
+        ViewBag.Title = "Internet shopping, Japanese style to your jewelry";
+    }
+    else
+    {
+        ViewBag.Title = "Интернет магазин, японский стиль украшений";
+    }
+}
+
+@section Scripts {
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var lang = window.navigator.language;
+        if (lang.toLowerCase().indexOf("ru") >= 0) {
+            $('[id="d_CatNameEn0"]').remove();
+            $('[id="d_CatNameEn"]').remove();
+        }
+        else {
+            $('[id="d_CatNameRu0"]').remove();
+            $('[id="d_CatNameRu"]').remove();
+        }
+
+        var url = window.location.href;
+        if (url.indexOf("13") > -1) //13 - свадебные аксессуары
+            $('[id="div13"]').attr("class", 'col-md-3');
+    });
+
+    </script>
+}
+<div class="shopBag" id="d_CatNameEn0">
+    <h4>@ViewBag.CategoryNameEn</h4>
+</div>
+@if (Model.Count() > 0)
+    { 
+        @:<table id="d_CatNameEn" class="center-products">
+            @:<tr>
+    } 
+        @for (int i = 0; i < Model.Count(); i++)
+        { 
+            if (i != 0 && i % 3 == 0)
+            {
+                @:</tr>
+                @:<tr>
+            }
+            @:<td class="tdTop">
+                var item = Model[i];
+                if (item.C_C_Id != 18)
+                {
+                    <a href='@Url.Action("Products", "Home", new { Id = item.C_Id })'>
+                        @item.CategoryNameEnglish
+                    </a><br />
+                    <a href='@Url.Action("Products", "Home", new { Id = item.C_Id })'>
+                        <img src='@Url.Content(item.ImageFilePath)' />
+                    </a>
+                }
+                else
+                {
+                    <a href='@Url.Action("Photoshoots", "Home", new { Id = item.C_Id })'>
+                        @item.CategoryNameEnglish
+                    </a><br />
+                    <a href='@Url.Action("Photoshoots", "Home", new { Id = item.C_Id })'>
+                        <img src='@Url.Content(item.ImageFilePath)' />
+                    </a>
+                }
+            <hr />
+            @:</td>
+        } 
+        @if (Model.Count() > 0)
+        { 
+    @:</tr>
+@:</table>
+} 
+
+<div class="shopBag" id="d_CatNameRu0">
+    <h4>@ViewBag.CategoryNameRu</h4>
+</div>
+@if (Model.Count() > 0)
+    { 
+        @:<table id="d_CatNameRu" class="center-products">
+            @:<tr>
+    } 
+        @for (int i = 0; i < Model.Count(); i++)
+        { 
+            if (i != 0 && i % 3 == 0)
+            {
+                @:</tr>
+                @:<tr>
+            }
+            @:<td class="tdTop">
+                var item = Model[i];
+                if (item.C_C_Id != 18)
+                {
+                    <a href='@Url.Action("Products", "Home", new { Id = item.C_Id })'>
+                        @item.CategoryName
+                    </a><br />
+                    <a href='@Url.Action("Products", "Home", new { Id = item.C_Id })'>
+                        <img src='@Url.Content(item.ImageFilePath)' />
+                    </a>
+                }
+                else
+                {
+                    <a href='@Url.Action("Photoshoots", "Home", new { Id = item.C_Id })'>
+                        @item.CategoryName
+                    </a><br />
+                    <a href='@Url.Action("Photoshoots", "Home", new { Id = item.C_Id })'>
+                        <img src='@Url.Content(item.ImageFilePath)' />
+                    </a>
+                }
+            <hr />
+            @:</td>
+        } 
+        @if (Model.Count() > 0)
+        { 
+    @:</tr>
+@:</table>
+} 
+
+

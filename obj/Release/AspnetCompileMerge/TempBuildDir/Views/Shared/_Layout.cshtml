@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html>
+<html id="html-id">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    @RenderSection("metatags", false)
+    @*<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="NOODP">*@
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="SHORTCUT ICON" href="http://www.avonessa.com/images/flower1.ico" />
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        $(document).ready(function () {
+            var sb = $.cookie("AvonessaShoppingBag");
+            var url = "@Url.Action("ShoppingBag", "ShopBagOrder")";
+            url += "?" + sb;
+            $('[name="hrefShopBagRuEn"]').attr("href", url);
+            $('[name="hrefShopBagRuEn"]').attr("onclick", "showPageLoadingSpinner()");
+            $('[name="hrefShopBagRuEn"]').attr("class", "fontBold");
+
+            $.ajax({
+                url: '@Url.Action("GetShoppingBagQuantity", "ShopBagOrder")',
+                success: function (data) {
+                    var linkText = "";
+                    if (lang.toLowerCase().indexOf("ru") >= 0) {
+                        //"Русский язык"
+                        linkText = "Покупная сумка (" + data + ")";
+                        $('[name="hrefShopBagRuEn"]').text(linkText);
+                    }
+                    else {
+                        //English
+                        linkText = "Shopping Bag (" + data + ")";
+                        $('[name="hrefShopBagRuEn"]').text(linkText);
+                    }
+                },
+                cache: false
+            });
+            var lang = window.navigator.language;
+            //Shopping Bag:
+            if ($('[name="hrefShopBagRuEn"]').text("")) {
+                if (lang.toLowerCase().indexOf("ru") >= 0) 
+                    $('[name="hrefShopBagRuEn"]').text('Покупная сумка');
+                else
+                    $('[name="hrefShopBagRuEn"]').text('Shopping Bag');
+            } 
+            //Меню           
+            if (lang.toLowerCase().indexOf("ru") >= 0)
+            {
+                //"Русский язык"
+                $('[id="imgbanner"]').attr("src", 'http://avonessa.com/Images/rus.jpg');
+                //$('[id="body-id"]').attr("class", 'body-ru');
+                $('[name="History"]').text("История");
+                $('[name="Catalog"]').text("Каталог украшений");
+                $('[name="Wedding"]').text("Свадебные аксессуары");
+                //$('[name="Delivery"]').text("Доставка");
+                $('[name="Photoshoots"]').text("Фотосессии");
+                $('[name="Help"]').text("Помощь");
+                $('[name="NewYearHolidays"]').text("Новый Год и Праздники");
+                $('[name="School"]').text("Школа");
+                $('[name="Headbands"]').text("Ободки");
+                $('[name="Hairpins"]').text("Заколки");
+                $('[name="Clips"]').text("Зажимы");
+                $('[name="Bracelets"]').text("Браслеты");
+                $('[name="Jewellery_Sets"]').text("Комплекты");
+                $('[name="Brooches"]').text("Броши");
+                $('[name="Necklaces"]').text("Ожерелья");
+                $('[name="EarringsRings"]').text("Серьги, Кольца");
+                $('[name="_Wedding"]').text("Свадьба");
+                $('[name="Bridal_Bouquet"]').text("Букет невесты");
+                $('[name="BooksOfWishes"]').text("Книги пожеланий");
+                $('[name="Rings"]').text("Шампанское, бокалы, подушки для колец"); 
+                $('[name="HowOrderOnline"]').text("Как оформить заказ");
+                $('[name="Shipping"]').text("Доставка");
+                $('[name="Contacts"]').text("Контакты");
+            }
+            else
+            {
+                //English
+                //$('[id="html-id"]').attr("class", 'html-en');
+                //$('[id="body-id"]').attr("class", 'body-en');
+                $('[id="imgbanner"]').attr("src", 'http://avonessa.com/Images/engl.jpg');
+                $('[name="History"]').text("History");
+                $('[name="Catalog"]').text("Catalog of Adornments");
+                $('[name="Wedding"]').text("Wedding Accessories");
+                //$('[name="Delivery"]').text("Delivery");
+                $('[name="Photoshoots"]').text("Photoshoots");
+                $('[name="Help"]').text("Help");
+
+                $('[name="NewYearHolidays"]').text("New Year and Holidays");
+                $('[name="School"]').text("School");
+                $('[name="Headbands"]').text("Headbands");
+                $('[name="Hairpins"]').text("Hairpins");
+                $('[name="Clips"]').text("Clips");
+                $('[name="Bracelets"]').text("Bracelets");
+                $('[name="Jewellery_Sets"]').text("Jewellery Sets");
+                $('[name="Brooches"]').text("Brooches");
+                $('[name="Necklaces"]').text("Necklaces");
+                $('[name="EarringsRings"]').text("Earrings, Rings");
+                $('[name="_Wedding"]').text("Wedding");
+                $('[name="Bridal_Bouquet"]').text("Bridal Bouquet");
+                $('[name="BooksOfWishes"]').text("Books of Wishes");
+                $('[name="Rings"]').text("Champagne, Glasses, Pillows for Rings");
+                $('[name="HowOrderOnline"]').text("How to order online");
+                $('[name="Shipping"]').text("Shipping");
+                $('[name="Contacts"]').text("Contacts");
+            }
+            $('.js-activated').dropdownHover().dropdown();
+        });
+</script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script type="text/javascript">
+    function showPageLoadingSpinner() {
+        $('#ajaxLoaderDiv').show();
+    }
+
+    function hidePageLoadingSpinner() {
+        setTimeout(function () {
+            $('.ajax-loader').remove();
+            $('#ajaxLoaderDiv').hide();
+        }, 20000);
+    }
+
+</script>
+
+</head>
+<body id="body-id">
+    <img src="" class="center-img" id="imgbanner" />
+    <div id="ajaxLoaderDiv" style="position:fixed; top:40%; left:45%; z-index:1234; display:none;">
+        <img src="@Url.Content("~/Images/ajax-loader.gif")" alt="Loading..." class="ajax-loader" />
+    </div>
+    <div id="custom-bootstrap-menu" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" name="Brand" href="@Url.Action("Index", "Home")">Avonessa.com</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder">
+                    <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </button>
+            </div>
+            <!-- Non-collapsing right-side icons -->
+            <ul class="nav navbar-nav brand2">
+                <li>
+                    <a href="" name="hrefShopBagRuEn" class="fa fa-cog"></a>
+                </li>
+            </ul>
+            <a class="brand" style="margin: 0; float: none;" href="#">
+                <img src="~/Images/ShoppingBag2.gif" />
+            </a>
+            <div class="collapse navbar-collapse navbar-menubuilder">
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <a href="@Url.Action("History", "Home")" class="fontBold" name="History"></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="@Url.Action("Index", "Home", new { id = 0 })"
+                           name="Catalog" class="dropdown-toggle js-activated fontBold"></a>
+                        <ul class="dropdown-menu">
+                            <li><a name="NewYearHolidays" href="@Url.Action("Products", "Home", new { id = 3 })"></a></li>
+                            <li><a name="School" href="@Url.Action("Products", "Home", new { id = 4 })"></a></li>
+                            <li><a name="Headbands" href="@Url.Action("Products", "Home", new { id = 5 })"></a></li>
+                            <li><a name="Hairpins" href="@Url.Action("Products", "Home", new { id = 6 })"></a></li>
+                            <li><a name="Clips" href="@Url.Action("Products", "Home", new { id = 7 })"></a></li>
+                            <li><a name="Bracelets" href="@Url.Action("Products", "Home", new { id = 8 })"></a></li>
+                            <li><a name="Jewellery_Sets" href="@Url.Action("Products", "Home", new { id = 9 })"></a></li>
+                            <li><a name="Brooches" href="@Url.Action("Products", "Home", new { id = 10 })"></a></li>
+                            <li><a name="Necklaces" href="@Url.Action("Products", "Home", new { id = 11 })"></a></li>
+                            <li><a name="EarringsRings" href="@Url.Action("Products", "Home", new { id = 12 })"></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="@Url.Action("Index", "Home", new { id = 13 })"
+                           name="Wedding" class="dropdown-toggle js-activated fontBold"></a>
+                        <ul class="dropdown-menu">
+                            <li><a name="_Wedding" href="@Url.Action("Products", "Home", new { id = 14 })"></a></li>
+                            <li><a name="Bridal_Bouquet" href="@Url.Action("Products", "Home", new { id = 15 })"></a></li>
+                            <li><a name="BooksOfWishes" href="@Url.Action("Products", "Home", new { id = 16 })"></a></li>
+                            <li><a name="Rings" href="@Url.Action("Products", "Home", new { id = 17 })"></a></li>
+                        </ul>
+                    </li>
+                    @*<li>
+                        <a href="@Url.Action("Index", "Home")" class="fontBold" name="Delivery"></a>
+                    </li>*@
+                    <li>
+                        <a href="@Url.Action("Photoshoots", "Home")" class="fontBold" name="Photoshoots"></a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Mailer", "Home")" class="fontBold" name="Help" onclick="showPageLoadingSpinner()"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="wrap">
+        <div class="container">@RenderBody()</div>
+        <div id="push"></div>
+    </div>
+    <footer id="footer" style="text-align:center">
+        <div class="container">
+            <div>
+                <br />
+                <a name="HowOrderOnline" class="fontBold" href="@Url.Action("ShippingAndOrder", "Home", new {WhichPage = "Order"})"></a>
+                &nbsp;&nbsp;
+                <a name="Shipping" class="fontBold" href="@Url.Action("ShippingAndOrder", "Home", new {WhichPage = "Shipping"})"></a>
+                &nbsp;&nbsp;
+                <a name="Contacts" class="fontBold" href="@Url.Action("Contacts", "Home")"></a>
+                <br/>
+
+                <script type="text/javascript">
+                    (function (w, doc) {
+                        if (!w.__utlWdgt) {
+                            w.__utlWdgt = true;
+                            var d = doc, s = d.createElement('script'), g = 'getElementsByTagName';
+                            s.type = 'text/javascript'; s.charset = 'UTF-8'; s.async = true;
+                            s.src = ('https:' == w.location.protocol ? 'https' : 'http') + '://w.uptolike.com/widgets/v1/uptolike.js';
+                            var h = d[g]('body')[0];
+                            h.appendChild(s);
+                        }
+                    })(window, document);
+                
+                    $(document).ready(function () {
+                        var lang = window.navigator.language;
+                        if (lang.toLowerCase().indexOf("ru") >= 0) {
+                            $('[id="socEn"]').remove();
+                        }
+                        else
+                        {
+                            $('[id="socRu"]').remove();
+                        }
+                    });
+                    </script>
+                <!--Russian-->
+                <div id="socRu" data-background-alpha="0.0" data-buttons-color="#FFFFFF" data-counter-background-color="#ffffff" data-share-counter-size="12" data-top-button="true" data-share-counter-type="disable" data-share-style="1" data-mode="follow" data-follow-vk="club13045217" data-like-text-enable="false" data-mobile-view="true" data-icon-color="#ffffff" data-orientation="fixed-left" data-text-color="#000000" data-share-shape="rectangle" data-sn-ids="fb.vk." data-share-size="30" data-background-color="#ffffff" data-preview-mobile="false" data-mobile-sn-ids="fb.vk.tw.wh.ok.gp." data-pid="1393923" data-counter-background-alpha="1.0" data-following-enable="false" data-exclude-show-more="false" data-selection-enable="true" data-follow-fb="pages/Avonessacom/1458084477821534?sk=timeline" class="uptolike-buttons"></div>
+                <!--English-->
+                <div id="socEn" data-background-alpha="0.0" data-buttons-color="#FFFFFF" data-counter-background-color="#ffffff" data-share-counter-size="12" data-top-button="true" data-share-counter-type="disable" data-share-style="1" data-mode="follow" data-like-text-enable="false" data-mobile-view="true" data-icon-color="#ffffff" data-orientation="fixed-left" data-text-color="#000000" data-share-shape="rectangle" data-sn-ids="fb." data-share-size="30" data-background-color="#ffffff" data-preview-mobile="false" data-mobile-sn-ids="fb.vk.tw.wh.ok.gp." data-pid="1393923" data-counter-background-alpha="1.0" data-following-enable="false" data-exclude-show-more="false" data-selection-enable="true" data-follow-fb="pages/Avonessa-Japanese-style-to-your-jewelry/150263161693400?sk=timeline" class="uptolike-buttons"></div>
+
+        <div class="fb-share-button" data-href="http://avonessa.com/Home/History" data-layout="button_count"></div>
+
+        <br/>
+        <img src="http://avonessa.com/images/paypal.gif" alt="PayPal"/>
+        <br/>
+        &copy; @DateTime.Now.Year www.koran.site
+    </div>
+</div>
+</footer>
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+
+<!-- Boostrap JS and hover dropdown plugin -->
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/bootstrap-hover-dropdown.min.js"></script>
+</body>
+</html>

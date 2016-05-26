@@ -1,0 +1,85 @@
+﻿@model AvonessaMVC5.Models.EmailModel
+@using CaptchaMvc.HtmlHelpers
+@{
+    ViewBag.Title = "Avonessa.com";
+}
+
+<div class="shopBag">
+    <h4 id="hMailMessage"></h4>
+</div>
+@{bool bIsRussian = false;
+  if (Request.ServerVariables["HTTP_ACCEPT_LANGUAGE"].ToString().Substring(0, 2) != "ru")
+  {
+      bIsRussian = true;
+  }
+ }
+@using (Html.BeginForm("Mailer", "Home", FormMethod.Post))
+{ 
+    @Html.ValidationSummary()
+    <div class="center">
+        <table>
+            <tr>
+                <td>
+                    <label id="lFrom"></label>
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.From, new { @class = "tbContactsClass" })<br />
+                 </td>
+            </tr>
+            <tr>
+                <td>
+                    <label id="lBody"></label>
+                </td>
+                <td>
+                    @Html.TextAreaFor(m => m.Body, new { @class = "tbContactsClass" })<br />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @if (bIsRussian)
+                    {
+                        @Html.Captcha("Refresh", "Input the letters", 5, "Is required field.", true)
+                    }
+                    else
+                    {
+                        @Html.Captcha("Обновить", "Введите символы", 5, "Обязательное поле.", true)
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <br />
+                    <input type="submit" class="" id="sendButtonRuEn" value="" />
+                </td>
+            </tr>
+        </table>
+        
+        @ViewBag.ErrorMsg
+    </div>
+}
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var lang = window.navigator.language;
+            if (lang.toLowerCase().indexOf("ru") >= 0)
+            {
+                $('[id="hMailMessage"]').text('Отправить вопрос:');
+                $('[id="lFrom"]').text('Ваш E-Mail:');
+                $('[id="lBody"]').text('Введите вопрос:');
+                $('[id="sendButton"]').val('Отправить');
+                $('[id="sendButtonRuEn"]').attr("class", 'ButtonSendMailRu');
+            }
+            else
+            {
+                $('[id="hMailMessage"]').text('Send Question:');
+                $('[id="lFrom"]').text('Your E-Mail:');
+                $('[id="lBody"]').text('Enter question:');
+                $('[id="sendButton"]').val('Send');
+                $('[id="sendButtonRuEn"]').attr("class", 'ButtonSendMailEn');
+            }
+        });
+    </script>
+}

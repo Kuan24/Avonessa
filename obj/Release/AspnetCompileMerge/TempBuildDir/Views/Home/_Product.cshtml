@@ -1,0 +1,74 @@
+﻿@model IEnumerable<AvonessaMVC5.sp_GetProducts_1_Result>
+@section metatags
+{
+    <meta name="Description" content="Product: @ViewBag.ProductNameEnglish. Category: @ViewBag.CategoryNameEnglish. Price: $@ViewBag.ProductCost USD." />
+    <meta name="Keywords" content="@ViewBag.CategoryNameEnglish" />
+    <meta name="Описание" content="Товар: @ViewBag.ProductName. Категория: @ViewBag.CategoryName. Цена:  $@ViewBag.ProductCost USD." />
+    <meta name="Ключевые слова" content="@ViewBag.CategoryName" />
+}
+
+@{
+    if (Request.ServerVariables["HTTP_ACCEPT_LANGUAGE"].ToString().Substring(0, 2) != "ru")
+    {
+        ViewBag.Title = ViewBag.ProductNameEnglish + " Avonessa.com";
+    }
+    else
+    {
+        ViewBag.Title = ViewBag.ProductName + " Avonessa.com";
+    }
+}
+
+@section Scripts {
+    <script type="text/JavaScript">
+    $(document).ready(function () {
+        var lang = window.navigator.language;
+        if (lang.toLowerCase().indexOf("ru") >= 0) {
+            $('[id="EnlargeImageRuEn"]').text('Увеличить');
+            $('[id="NameRuEn"]').text('@ViewBag.ProductName');
+            $('[id="NoteRuEn"]').text('@ViewBag.Notes');
+            $('[id="Code"]').text("Код: " + '@ViewBag.P_Id');
+            $('[id="ButtonAddEnRu"]').attr("class", 'ButtonAddToBagRu');
+            //$('[id="ButtonAddEnRu"]').class("ButtonAddToBagRu");
+
+            //alert(lang);
+        }
+        else {
+            $('[id="EnlargeImageRuEn"]').text('Enlarge Image');
+            $('[id="NameRuEn"]').text('@ViewBag.ProductNameEnglish');
+            $('[id="Code"]').text("Code: " + '@ViewBag.P_Id');
+            $('[id="NoteRuEn"]').text('@ViewBag.NotesEnglish');
+            $('[id="ButtonAddEnRu"]').attr("class", 'ButtonAddToBagEn');
+        }
+    });
+</script>
+}
+@using (Html.BeginForm("_Product", "Home", FormMethod.Post))
+{
+    <table class="ProductTable">
+        <tr>
+            <td class="tdProduct">
+                <label class="labelTxt"><span id="NameRuEn"></span></label><br/>
+                 <img src='@Url.Content(ViewBag.ImageFilePath)' />
+                <br />
+                <div id="first">
+                    <a onclick="window.location.replace('@Url.Action("_Product", "Home", new { id = 0, p_id = ViewBag.P_Id })'); return false"
+                       href="@Url.Content(ViewBag.ImageFilePath2)" id="EnlargeImageRuEn">
+                    </a>
+                </div>
+            </td>
+            <td class="tdProduct">
+                <label class="labelTxt">
+                    @string.Format(new System.Globalization.CultureInfo("en-US"), "{0:c}", @ViewBag.ProductCost)
+                </label>
+                <br />
+                <label class="labelTxt"><span id="NoteRuEn"></span></label>
+                <br />
+                <label class="labelTxt"><span id="Code" class="grayTxt"></span></label>
+                <br />
+                @Html.TextBox("tbQuantity", 1, new { @class = "tbQuantityClass" })&nbsp;
+                <label class="labelTxt"><span id="ProductAlreadyInBag" class="redTxt">@ViewBag.AlreadyInBagRuEn</span></label>
+                <input id="ButtonAddEnRu" type="submit" value="" onclick="showPageLoadingSpinner()" />
+            </td>
+        </tr>
+    </table>
+}

@@ -1,0 +1,38 @@
+﻿@{
+    if (Request.ServerVariables["HTTP_ACCEPT_LANGUAGE"].ToString().Substring(0, 2) == "ru")
+    {
+        ViewBag.Title = "Контакты, интернет магазин Avonessa.com";
+    }
+    else
+    {
+        ViewBag.Title = "Contacts, internet shopping Avonessa.com";
+    }
+}
+
+@section Scripts {
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var lang = window.navigator.language;
+        if (lang.toLowerCase().indexOf("ru") >= 0) {
+            $('[id="ContactEn"]').remove();
+        }
+        else {
+            $('[id="ContactRu"]').remove();
+        }
+    });
+    </script>
+}
+<div id="ContactRu">
+    <h4>Контакты</h4>
+    Телефоны: +7-707-701-06-03; +7-707-701-06-04 +8 702- 6736140<br />
+    <address>
+        E-Mail:&nbsp;<a href="mailto:info@avonessa.com">info@avonessa.com</a>
+    </address>
+</div>
+<div id="ContactEn">
+    <h4>Contacts</h4>
+    Phones: +7-707-701-06-03; +7-707-701-06-04 <br />
+    <address>
+        E-Mail:&nbsp;<a href="mailto:info@avonessa.com">info@avonessa.com</a>
+    </address>
+</div>

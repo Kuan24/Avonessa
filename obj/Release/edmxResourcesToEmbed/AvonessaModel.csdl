@@ -1,0 +1,607 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AvonessaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Administrator">
+    <Key>
+      <PropertyRef Name="A_Id" />
+    </Key>
+    <Property Name="A_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdminLogin" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AdminPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="C_Id" />
+    </Key>
+    <Property Name="C_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="C_C_Id" Type="Int32" />
+    <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OrderInPage" Type="Int32" />
+    <Property Name="I_I_Id" Type="Int32" />
+    <Property Name="CategoryNameEnglish" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Categories1" Relationship="Self.FK_Categories_Categories" FromRole="Categories" ToRole="Categories1" />
+    <NavigationProperty Name="Category1" Relationship="Self.FK_Categories_Categories" FromRole="Categories1" ToRole="Categories" />
+    <NavigationProperty Name="Image" Relationship="Self.FK_Categories_Images" FromRole="Categories" ToRole="Images" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Products_Categories1" FromRole="Categories" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="CustomerOrder">
+    <Key>
+      <PropertyRef Name="CO_Id" />
+    </Key>
+    <Property Name="CO_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CR_CR_Id" Type="Int32" Nullable="false" />
+    <Property Name="O_O_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_CustomerOrders_Orders" FromRole="CustomerOrders" ToRole="Orders" />
+    <NavigationProperty Name="Customer" Relationship="AvonessaDBModel.FK_CustomerOrders_Customers" FromRole="CustomerOrder" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="I_Id" />
+    </Key>
+    <Property Name="I_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImageFilePath" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ImageFilePath2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Categories" Relationship="Self.FK_Categories_Images" FromRole="Images" ToRole="Categories" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Products_Images" FromRole="Images" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="OrderProduct">
+    <Key>
+      <PropertyRef Name="OP_Id" />
+    </Key>
+    <Property Name="OP_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="P_P_Id" Type="Int32" Nullable="false" />
+    <Property Name="O_O_Id" Type="Int32" Nullable="false" />
+    <Property Name="P_Quantity" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_OrderProducts_Orders" FromRole="OrderProducts" ToRole="Orders" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_OrderProducts_Products" FromRole="OrderProducts" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="O_Id" />
+    </Key>
+    <Property Name="O_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="O_Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="O_IsPaid" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="CustomerOrders" Relationship="Self.FK_CustomerOrders_Orders" FromRole="Orders" ToRole="CustomerOrders" />
+    <NavigationProperty Name="OrderProducts" Relationship="Self.FK_OrderProducts_Orders" FromRole="Orders" ToRole="OrderProducts" />
+    <NavigationProperty Name="tblPostLinkDatas" Relationship="Self.FK_tblPostLinkData_Orders" FromRole="Orders" ToRole="tblPostLinkData" />
+    <Property Name="O_Payment_date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="O_Transaction" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="O_PaymentId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="O_PayerId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="P_Id" />
+    </Key>
+    <Property Name="P_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductCost" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+    <Property Name="ProductName" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="I_I_Id" Type="Int32" />
+    <Property Name="C_C_Id" Type="Int32" Nullable="false" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ProductNameEnglish" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="NotesEnglish" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ProductInStock" Type="Int32" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_Products_Categories1" FromRole="Products" ToRole="Categories" />
+    <NavigationProperty Name="Image" Relationship="Self.FK_Products_Images" FromRole="Products" ToRole="Images" />
+    <NavigationProperty Name="OrderProducts" Relationship="Self.FK_OrderProducts_Products" FromRole="Products" ToRole="OrderProducts" />
+    <NavigationProperty Name="ShoppingBagProducts" Relationship="Self.FK_ShoppingBagProducts_Products" FromRole="Products" ToRole="ShoppingBagProducts" />
+  </EntityType>
+  <EntityType Name="ShoppingBagProduct">
+    <Key>
+      <PropertyRef Name="SBP_Id" />
+    </Key>
+    <Property Name="SBP_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="P_P_Id" Type="Int32" Nullable="false" />
+    <Property Name="SBP_Quantity" Type="Int16" Nullable="false" />
+    <Property Name="SB_SB_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ShoppingBagProducts_Products" FromRole="ShoppingBagProducts" ToRole="Products" />
+    <NavigationProperty Name="ShoppingBag" Relationship="AvonessaDBModel.FK_ShoppingBagProducts_ShoppingBags" FromRole="ShoppingBagProduct" ToRole="ShoppingBag" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tblPostLinkData">
+    <Key>
+      <PropertyRef Name="pl_id" />
+    </Key>
+    <Property Name="pl_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostLinkData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="O_O_Id" Type="Int32" Nullable="false" />
+    <Property Name="HasPassed" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_tblPostLinkData_Orders" FromRole="tblPostLinkData" ToRole="Orders" />
+  </EntityType>
+  <Association Name="FK_Categories_Categories">
+    <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Categories1" Type="Self.Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="C_Id" />
+      </Principal>
+      <Dependent Role="Categories1">
+        <PropertyRef Name="C_C_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Categories_Images">
+    <End Role="Images" Type="Self.Image" Multiplicity="0..1" />
+    <End Role="Categories" Type="Self.Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Images">
+        <PropertyRef Name="I_Id" />
+      </Principal>
+      <Dependent Role="Categories">
+        <PropertyRef Name="I_I_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Categories1">
+    <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="C_Id" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="C_C_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerOrders_Orders">
+    <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+    <End Role="CustomerOrders" Type="Self.CustomerOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="O_Id" />
+      </Principal>
+      <Dependent Role="CustomerOrders">
+        <PropertyRef Name="O_O_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Images">
+    <End Role="Images" Type="Self.Image" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Images">
+        <PropertyRef Name="I_Id" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="I_I_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderProducts_Orders">
+    <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrderProducts" Type="Self.OrderProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="O_Id" />
+      </Principal>
+      <Dependent Role="OrderProducts">
+        <PropertyRef Name="O_O_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderProducts_Products">
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="OrderProducts" Type="Self.OrderProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="P_Id" />
+      </Principal>
+      <Dependent Role="OrderProducts">
+        <PropertyRef Name="P_P_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblPostLinkData_Orders">
+    <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+    <End Role="tblPostLinkData" Type="Self.tblPostLinkData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="O_Id" />
+      </Principal>
+      <Dependent Role="tblPostLinkData">
+        <PropertyRef Name="O_O_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ShoppingBagProducts_Products">
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="ShoppingBagProducts" Type="Self.ShoppingBagProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="P_Id" />
+      </Principal>
+      <Dependent Role="ShoppingBagProducts">
+        <PropertyRef Name="P_P_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AvonessaDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Administrators" EntityType="Self.Administrator" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="CustomerOrders" EntityType="Self.CustomerOrder" />
+    <EntitySet Name="Images" EntityType="Self.Image" />
+    <EntitySet Name="OrderProducts" EntityType="Self.OrderProduct" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="ShoppingBagProducts" EntityType="Self.ShoppingBagProduct" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="tblPostLinkDatas" EntityType="Self.tblPostLinkData" />
+    <AssociationSet Name="FK_Categories_Categories" Association="Self.FK_Categories_Categories">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Categories1" EntitySet="Categories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Categories_Images" Association="Self.FK_Categories_Images">
+      <End Role="Images" EntitySet="Images" />
+      <End Role="Categories" EntitySet="Categories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Categories1" Association="Self.FK_Products_Categories1">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerOrders_Orders" Association="Self.FK_CustomerOrders_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="CustomerOrders" EntitySet="CustomerOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Images" Association="Self.FK_Products_Images">
+      <End Role="Images" EntitySet="Images" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderProducts_Orders" Association="Self.FK_OrderProducts_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderProducts" EntitySet="OrderProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderProducts_Products" Association="Self.FK_OrderProducts_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="OrderProducts" EntitySet="OrderProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblPostLinkData_Orders" Association="Self.FK_tblPostLinkData_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="tblPostLinkData" EntitySet="tblPostLinkDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ShoppingBagProducts_Products" Association="Self.FK_ShoppingBagProducts_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ShoppingBagProducts" EntitySet="ShoppingBagProducts" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DeleteProductFromSB">
+      <Parameter Name="SB_Id" Mode="In" Type="Int32" />
+      <Parameter Name="P_Id" Mode="In" Type="Int32" />
+      <Parameter Name="pExistsInBag" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DeleteShoppingBag">
+      <Parameter Name="SB_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetCategories" ReturnType="Collection(AvonessaDBModel.sp_GetCategories_Result)">
+      <Parameter Name="c_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetOrderInsertAccountUpdateOP">
+      <Parameter Name="CR_Address" Mode="In" Type="String" />
+      <Parameter Name="CR_Email" Mode="In" Type="String" />
+      <Parameter Name="CR_ContactName" Mode="In" Type="String" />
+      <Parameter Name="SB_Id" Mode="In" Type="Int32" />
+      <Parameter Name="O_Id" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetPassword" ReturnType="Collection(String)">
+      <Parameter Name="AdminLogin" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetProducts" ReturnType="Collection(AvonessaDBModel.sp_GetProducts_Result)">
+      <Parameter Name="C_Id" Mode="In" Type="Int32" />
+      <Parameter Name="P_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetSBQuantity" ReturnType="Collection(Int16)">
+      <Parameter Name="SB_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetShoppingBag" ReturnType="Collection(AvonessaDBModel.sp_GetShoppingBag_Result)">
+      <Parameter Name="SB_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(AvonessaDBModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(AvonessaDBModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsertCategoryImage">
+      <Parameter Name="C_Id" Mode="In" Type="Int32" />
+      <Parameter Name="ImageFilePath" Mode="In" Type="String" />
+      <Parameter Name="CategoryName" Mode="In" Type="String" />
+      <Parameter Name="CategoryNameEnglish" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsertNamePassword">
+      <Parameter Name="LoginName" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsertPostLinkData">
+      <Parameter Name="plData" Mode="In" Type="String" />
+      <Parameter Name="O_O_Id" Mode="In" Type="Int32" />
+      <Parameter Name="HasPassed" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="sp_IUProductData">
+      <Parameter Name="P_Id" Mode="In" Type="Int32" />
+      <Parameter Name="C_Id" Mode="In" Type="Int32" />
+      <Parameter Name="I_Id" Mode="In" Type="Int32" />
+      <Parameter Name="ProductCost" Mode="In" Type="Decimal" />
+      <Parameter Name="ProductName" Mode="In" Type="String" />
+      <Parameter Name="Note" Mode="In" Type="String" />
+      <Parameter Name="ProductNameEnglish" Mode="In" Type="String" />
+      <Parameter Name="NoteEnglish" Mode="In" Type="String" />
+      <Parameter Name="ProductInStock" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_IUProductImage">
+      <Parameter Name="ImageFilePath" Mode="In" Type="String" />
+      <Parameter Name="ImageFilePath2" Mode="In" Type="String" />
+      <Parameter Name="P_Id" Mode="In" Type="Int32" />
+      <Parameter Name="I_Id" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_MakeShoppingBag">
+      <Parameter Name="P_Id" Mode="In" Type="Int32" />
+      <Parameter Name="SB_Id" Mode="In" Type="Int32" />
+      <Parameter Name="SBP_Quantity" Mode="In" Type="Int16" />
+      <Parameter Name="SB_Id_out" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpdateOrder">
+      <Parameter Name="O_O_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpdatePassword">
+      <Parameter Name="A_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpdateShoppingBag">
+      <Parameter Name="SB_Id" Mode="In" Type="Int32" />
+      <Parameter Name="P_Id" Mode="In" Type="Int32" />
+      <Parameter Name="PQuantity" Mode="In" Type="Int16" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="sp_GetShoppingBagById" ReturnType="Collection(AvonessaDBModel.sp_GetShoppingBagById_Result)">
+      <Parameter Name="SB_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetProductsWitnCategoryName" ReturnType="Collection(AvonessaDBModel.sp_GetProductsWitnCategoryName_Result)">
+      <Parameter Name="C_Id" Mode="In" Type="Int32" />
+      <Parameter Name="P_Id" Mode="In" Type="Int32" />
+      <Parameter Name="CategoryName_out" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsertContactData">
+      <Parameter Name="CR_ContactName" Mode="In" Type="String" />
+      <Parameter Name="CR_Email" Mode="In" Type="String" />
+      <Parameter Name="CR_AddressCountry" Mode="In" Type="String" />
+      <Parameter Name="CR_PostalCode" Mode="In" Type="String" />
+      <Parameter Name="CR_AddressCity" Mode="In" Type="String" />
+      <Parameter Name="CR_AddressStreet" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetProductCost" ReturnType="Collection(Decimal)">
+      <Parameter Name="P_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsertPayerIdToShoppingBag">
+      <Parameter Name="PayerId" Mode="In" Type="String" />
+      <Parameter Name="SB_Id" Mode="In" Type="Int32" />
+      <Parameter Name="PaymentId" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Customers" EntityType="AvonessaDBModel.Customer" />
+    <AssociationSet Name="FK_CustomerOrders_Customers" Association="AvonessaDBModel.FK_CustomerOrders_Customers">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="CustomerOrder" EntitySet="CustomerOrders" />
+    </AssociationSet>
+    <FunctionImport Name="sp_InsertDataFromPayPal">
+      <Parameter Name="CR_ContactName" Mode="In" Type="String" />
+      <Parameter Name="CR_Email" Mode="In" Type="String" />
+      <Parameter Name="CR_AddressCountry" Mode="In" Type="String" />
+      <Parameter Name="CR_PostalCode" Mode="In" Type="String" />
+      <Parameter Name="CR_AddressCountryCode" Mode="In" Type="String" />
+      <Parameter Name="CR_AddressState" Mode="In" Type="String" />
+      <Parameter Name="CR_AddressCity" Mode="In" Type="String" />
+      <Parameter Name="CR_AddressStreet" Mode="In" Type="String" />
+      <Parameter Name="CR_PayerId" Mode="In" Type="String" />
+      <Parameter Name="O_Payment_date" Mode="In" Type="String" />
+      <Parameter Name="O_Transaction" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsertDataFromPayPal_0" ReturnType="Collection(Int32)">
+      <Parameter Name="CR_ContactName" Mode="In" Type="String" />
+      <Parameter Name="CR_Email" Mode="In" Type="String" />
+      <Parameter Name="CR_AddressCountry" Mode="In" Type="String" />
+      <Parameter Name="CR_PostalCode" Mode="In" Type="String" />
+      <Parameter Name="CR_AddressCountryCode" Mode="In" Type="String" />
+      <Parameter Name="CR_AddressState" Mode="In" Type="String" />
+      <Parameter Name="CR_AddressCity" Mode="In" Type="String" />
+      <Parameter Name="CR_AddressStreet" Mode="In" Type="String" />
+      <Parameter Name="CR_PayerId" Mode="In" Type="String" />
+      <Parameter Name="O_Payment_date" Mode="In" Type="String" />
+      <Parameter Name="TxnID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsertOrderDeleteSB">
+      <Parameter Name="PayerId" Mode="In" Type="String" />
+      <Parameter Name="SB_Id" Mode="In" Type="Int32" />
+      <Parameter Name="PaymentId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsertQuantityToSB">
+      <Parameter Name="P_Id" Mode="In" Type="Int32" />
+      <Parameter Name="SB_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Quantity" Mode="In" Type="Int16" />
+    </FunctionImport>
+    <EntitySet Name="ShoppingBags" EntityType="AvonessaDBModel.ShoppingBag" />
+    <AssociationSet Name="FK_ShoppingBagProducts_ShoppingBags" Association="AvonessaDBModel.FK_ShoppingBagProducts_ShoppingBags">
+      <End Role="ShoppingBag" EntitySet="ShoppingBags" />
+      <End Role="ShoppingBagProduct" EntitySet="ShoppingBagProducts" />
+    </AssociationSet>
+    <FunctionImport Name="sp_GetPhotoshoots" ReturnType="Collection(AvonessaDBModel.sp_GetPhotoshoots_Result)" />
+    <FunctionImport Name="sp_GetProducts_1" ReturnType="Collection(AvonessaDBModel.sp_GetProducts_1_Result)">
+      <Parameter Name="C_Id" Mode="In" Type="Int32" />
+      <Parameter Name="P_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="sp_GetCategories_Result">
+    <Property Type="Int32" Name="C_Id" Nullable="false" />
+    <Property Type="Int32" Name="C_C_Id" Nullable="true" />
+    <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="CategoryNameEnglish" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="OrderInPage" Nullable="true" />
+    <Property Type="Int32" Name="I_I_Id" Nullable="true" />
+    <Property Type="String" Name="ImageFilePath" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ImageFilePath2" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_GetProducts_Result">
+    <Property Type="Int32" Name="P_Id" Nullable="false" />
+    <Property Type="String" Name="ImageFilePath" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ImageFilePath2" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Notes" Nullable="true" />
+    <Property Type="Decimal" Name="ProductCost" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="String" Name="ProductNameEnglish" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="NotesEnglish" Nullable="true" />
+    <Property Type="Int32" Name="ProductInStock" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_GetShoppingBag_Result">
+    <Property Type="Int32" Name="P_Id" Nullable="false" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="20" />
+    <Property Type="Decimal" Name="ProductCost" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="String" Name="ProductNameEnglish" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="ImageFilePath" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ImageFilePath2" Nullable="true" MaxLength="50" />
+    <Property Type="Int16" Name="SBP_Quantity" Nullable="false" />
+    <Property Type="Decimal" Name="Amount" Nullable="true" Precision="14" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_GetShoppingBagById_Result">
+    <Property Type="Int32" Name="P_Id" Nullable="false" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="20" />
+    <Property Type="Decimal" Name="ProductCost" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="String" Name="ProductNameEnglish" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="ImageFilePath" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ImageFilePath2" Nullable="true" MaxLength="50" />
+    <Property Type="Int16" Name="SBP_Quantity" Nullable="false" />
+    <Property Type="Decimal" Name="Amount" Nullable="true" Precision="14" Scale="2" />
+    <Property Type="Int32" Name="SB_SB_Id" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_GetProductsWitnCategoryName_Result">
+    <Property Type="Int32" Name="P_Id" Nullable="false" />
+    <Property Type="String" Name="ImageFilePath" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ImageFilePath2" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Notes" Nullable="true" />
+    <Property Type="Decimal" Name="ProductCost" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="String" Name="ProductNameEnglish" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="NotesEnglish" Nullable="true" />
+    <Property Type="Int32" Name="ProductInStock" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CR_Id" />
+    </Key>
+    <Property Name="CR_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CR_ContactName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CR_Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CR_AddressCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CR_Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CR_PostalCode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="CR_AddressCountryCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CR_AddressState" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CR_AddressCity" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CR_AddressStreet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CustomerOrders" Relationship="AvonessaDBModel.FK_CustomerOrders_Customers" FromRole="Customer" ToRole="CustomerOrder" />
+    <Property Name="CR_PayerId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CR_IsRussian" Type="Boolean" />
+  </EntityType>
+  <Association Name="FK_CustomerOrders_Customers">
+    <End Type="AvonessaDBModel.Customer" Role="Customer" Multiplicity="1" />
+    <End Type="AvonessaDBModel.CustomerOrder" Role="CustomerOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CR_Id" />
+      </Principal>
+      <Dependent Role="CustomerOrder">
+        <PropertyRef Name="CR_CR_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ShoppingBag">
+    <Key>
+      <PropertyRef Name="SB_Id" />
+    </Key>
+    <Property Name="SB_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SB_Date" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="ShoppingBagProducts" Relationship="AvonessaDBModel.FK_ShoppingBagProducts_ShoppingBags" FromRole="ShoppingBag" ToRole="ShoppingBagProduct" />
+  </EntityType>
+  <Association Name="FK_ShoppingBagProducts_ShoppingBags">
+    <End Type="AvonessaDBModel.ShoppingBag" Role="ShoppingBag" Multiplicity="1" />
+    <End Type="AvonessaDBModel.ShoppingBagProduct" Role="ShoppingBagProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShoppingBag">
+        <PropertyRef Name="SB_Id" />
+      </Principal>
+      <Dependent Role="ShoppingBagProduct">
+        <PropertyRef Name="SB_SB_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="sp_GetPhotoshoots_Result">
+    <Property Type="Int32" Name="C_Id" Nullable="false" />
+    <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="CategoryNameEnglish" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="P_Id" Nullable="false" />
+    <Property Type="Decimal" Name="ProductCost" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="120" />
+    <Property Type="Int32" Name="I_I_Id" Nullable="true" />
+    <Property Type="Int32" Name="C_C_Id" Nullable="false" />
+    <Property Type="String" Name="Notes" Nullable="true" />
+    <Property Type="String" Name="ProductNameEnglish" Nullable="true" MaxLength="120" />
+    <Property Type="String" Name="NotesEnglish" Nullable="true" />
+    <Property Type="Int32" Name="ProductInStock" Nullable="true" />
+    <Property Type="Int32" Name="I_Id" Nullable="false" />
+    <Property Type="String" Name="ImageFilePath" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="ImageFilePath2" Nullable="true" MaxLength="200" />
+  </ComplexType>
+  <ComplexType Name="sp_GetProducts_1_Result">
+    <Property Type="Int32" Name="P_Id" Nullable="false" />
+    <Property Type="String" Name="ImageFilePath" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="ImageFilePath2" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="120" />
+    <Property Type="String" Name="Notes" Nullable="true" />
+    <Property Type="Decimal" Name="ProductCost" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="String" Name="ProductNameEnglish" Nullable="true" MaxLength="120" />
+    <Property Type="String" Name="NotesEnglish" Nullable="true" />
+    <Property Type="Int32" Name="ProductInStock" Nullable="true" />
+    <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="CategoryNameEnglish" Nullable="true" MaxLength="50" />
+  </ComplexType>
+</Schema>

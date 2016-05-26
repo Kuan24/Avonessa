@@ -1,0 +1,87 @@
+﻿@model IEnumerable<AvonessaMVC5.sp_GetProducts_Result>
+@{
+    if (Request.ServerVariables["HTTP_ACCEPT_LANGUAGE"].ToString().Substring(0, 2) != "ru")
+    {
+        ViewBag.Title = ViewBag.CategoryNameEnglish;
+    }
+    else
+    {
+        ViewBag.Title = ViewBag.CategoryName;
+    }
+}
+@section Scripts {
+<script type="text/javascript">
+    $(document).ready(function () {
+        var lang = window.navigator.language;
+        if (lang.toLowerCase().indexOf("ru") >= 0) {
+            $('[id="Code"]').text("Код:");
+            $('[id="d_CatNameEn"]').hide();
+            $('[id="d_products_en"]').hide();
+        }
+        else {
+            $('[id="Code"]').text("Code:");
+            $('[id="d_CatNameRu"]').hide();
+            $('[id="d_products_ru"]').hide();
+        }
+    });
+</script>
+}
+<div class="shopBag" id="d_CatNameRu"><h4>@ViewBag.CategoryName</h4></div>
+<div class="row" id="d_products_ru">
+    @foreach (var product in Model)
+    {
+        <div class="col-xs-6 col-sm-3">
+            <a href='@Url.Action("_Product", "Home", new { id = 0, p_id = product.P_Id })'>
+                @product.ProductName
+            </a><br />
+            <a href='@Url.Action("_Product", "Home", new { id = 0, p_id = product.P_Id })'>
+                <img src='@Url.Content(product.ImageFilePath)' />
+            </a>
+            <br />
+            <div id="first">
+                <a onclick="window.location.replace('@Url.Action("_Product", "Home", new { id = 0, p_id = product.P_Id })'); return false"
+                   href="@Url.Content(product.ImageFilePath2)">
+                    Увеличить
+                </a>
+            </div>
+            <label class="labelTxt">
+                @string.Format(new System.Globalization.CultureInfo("en-US"), "{0:c}", @product.ProductCost)
+            </label>
+            <br />
+            <label class="labelTxt">
+                <span id="Code" class="grayTxt"></span>
+                <span class="grayTxt"> @product.P_Id</span>
+            </label>
+        </div>
+    }
+</div>
+<div class="shopBag" id="d_CatNameEn"><h4>@ViewBag.CategoryNameEnglish</h4></div>
+<div class="row" id="d_products_en">
+    @foreach (var product in Model)
+    {
+        <div class="col-xs-6 col-sm-3">
+            <a href='@Url.Action("_Product", "Home", new { id = 0, p_id = product.P_Id })'>
+                @product.ProductNameEnglish
+            </a><br />
+            <a href='@Url.Action("_Product", "Home", new { id = 0, p_id = product.P_Id })'>
+                <img src='@Url.Content(product.ImageFilePath)' />
+            </a>
+            <br />
+            <div id="first">
+                <a onclick="window.location.replace('@Url.Action("_Product", "Home", new { id = 0, p_id = product.P_Id })'); return false"
+                   href="@Url.Content(product.ImageFilePath2)">
+                    Enlarge Image
+                </a>
+            </div>
+            <label class="labelTxt">
+                @string.Format(new System.Globalization.CultureInfo("en-US"), "{0:c}", @product.ProductCost)
+            </label>
+            <br />
+            <label class="labelTxt">
+                <span id="Code" class="grayTxt"></span>
+                <span class="grayTxt"> @product.P_Id</span>
+            </label>
+        </div>
+    }
+</div>
+
